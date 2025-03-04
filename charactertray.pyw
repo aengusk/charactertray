@@ -3,6 +3,7 @@
 
 import os
 import time
+import json
 from pystray import Icon, Menu, MenuItem as Item
 from PIL import Image
 from pynput.keyboard import Key, Controller
@@ -25,6 +26,11 @@ def on_clicked(icon, item):
         Keyboard.type(str(item)[0])
     else:
         pyperclip.copy(str(item)[0])
+
+def parse_json():
+    with open('characters.json', 'r') as f:
+        json_data = json.load(f)
+    return json_data
 
 # All low-level menu Items must have:
 #   text: a string beginning with the character that will be typed when they are clicked (example: '— (em dash)')
