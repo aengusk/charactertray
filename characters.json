@@ -1,8 +1,19 @@
 {
-    "dashes": [],
-    "Spanish uppercase": "",
-    "Spanish lowercase": "",
-    "Greek uppercase": "",
-    "Greek lowercase": "",
-    "favorites": []
+    "dashes": [
+        "- (hyphen)",
+        "– (en dash)",
+        "— (em dash)",
+        "⸺ (2-em dash)",
+        "⸻ (3-em dash)",
+        "− (minus sign)"
+    ],
+    "Spanish uppercase": "ÁÉÍÓÚÜÑ",
+    "Spanish lowercase": "áéíóúüñ",
+    "Greek uppercase": "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ",
+    "Greek lowercase": "αβγδεζηθικλμνξοπρστυφχψω",
+    "math": "π°−×÷⁰¹²³⁴≈≠≤≥⟨⟩∂",
+    "favorites": [
+        "α","η","θ","λ","μ","π","ρ","σ","ω","ඞ","¢","€","£","¥","á","é","í","ó","ú","ü","ñ","ş",
+        "— (em dash)"
+    ]
 }
