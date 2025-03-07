@@ -1,11 +1,12 @@
 # @DONE add json parse functionality
-# @TODO add copymode functionality
+# @DONE add copymode functionality
 # @TODO store image as binary
 # @TODO add argparse functionality and installation
     # run_on_startup (bool)
     # reload (to update JSON)
     # How would you make sure that there is only one instance running? 
 # @TODO add self to PATH or Python's syspath
+# @TODO add description, author, license to pyproject.toml
 
 import os
 import time
@@ -72,13 +73,22 @@ def toggle_copy_to_clipboard(icon, item):
     global copy_to_clipboard
     copy_to_clipboard = not copy_to_clipboard
 
+quit_item = MenuItem(
+    'Quit', 
+    icon.stop, 
+    default = False
+)
+
 copy_to_clipboard_item = MenuItem(
     'Copy to clipboard',
     toggle_copy_to_clipboard,
     checked = lambda item: copy_to_clipboard
 )
 
-icon.menu = Menu(MenuItem("quit", icon.stop, default = False), copy_to_clipboard_item, *all_menu_items)
+icon.menu = Menu(quit_item, copy_to_clipboard_item, *all_menu_items)
+
+def main():
+    icon.run()
 
 if __name__ == '__main__':
-    icon.run()
+    main()

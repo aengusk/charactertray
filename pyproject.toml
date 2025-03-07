@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "charactertray"  # Name of your package
+version = "1.1.dev0"  # Version of your package
+#description = "A minimal description of your package"
+#authors = [
+#    { name = "Your Name", email = "your.email@example.com" }
+#]
+
+dependencies = [
+    "Pillow",    # for PIL functionality
+    "pystray",   # for system tray icon management
+    "pynput",    # for controlling and monitoring input devices
+    "pyperclip", # for clipboard functionality
+]
+
+[tool.setuptools]
+packages = ["charactertray"]
