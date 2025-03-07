@@ -1,19 +1,20 @@
 # @DONE add json parse functionality
 # @DONE add copymode functionality
 # @DONE restructure as package
-# @TODO store image as binary
+# @DONE store image as binary
 # @TODO add argparse functionality and installation
     # run_on_startup (bool)
     # reload (to update JSON)
     # How would you make sure that there is only one instance running? 
 # @TODO add self to PATH or Python's syspath
 # @TODO add description, author, license to pyproject.toml
+# @TODO clean all documentation, comments, and files
 
 import os
 from io import BytesIO
 import time
 import json
-# import importlib.resources as pkg_resources
+import subprocess
 from importlib.resources import files as pkg_files # @TODO consolidate
 from pystray import Icon, Menu, MenuItem
 from PIL import Image
@@ -23,6 +24,10 @@ import charactertray
 
 copy_to_clipboard = False
 Keyboard = Controller()
+
+package_path = pkg_files(charactertray)
+json_path =    package_path.joinpath('characters.json')
+image_path =   package_path.joinpath('enye.png')
 
 def switchWindow():
     Keyboard.press(Key.alt)
@@ -51,7 +56,7 @@ def parse_json():
     and returns a tuple of MenuItems
     to be unpacked by icon.menu = Menu(*tuple)
     '''
-    with pkg_files(charactertray).joinpath("characters.json").open("r", encoding='utf-8') as f:
+    with json_path.open("r", encoding='utf-8') as f:
         all_submenu_data = json.load(f)
     all_menu_items = []
     for submenu_title in all_submenu_data.keys():
@@ -70,20 +75,15 @@ def parse_json():
 
 all_menu_items = parse_json()
 
-with pkg_files(charactertray).joinpath('enye.png').open('rb') as f:
+with image_path.open('rb') as f:
+    # BytesIO prevents a ValueError: seek of closed file the next time image is referenced.
     image = Image.open(BytesIO(f.read()))
-# @TODO this currently raises a ValueError: seek of closed file
+
 icon = Icon('aengus_character_tray_icon', image, 'Aengus Character Tray')
 
 def toggle_copy_to_clipboard(icon, item):
     global copy_to_clipboard
     copy_to_clipboard = not copy_to_clipboard
-
-quit_item = MenuItem(
-    'Quit', 
-    icon.stop, 
-    default = False
-)
 
 copy_to_clipboard_item = MenuItem(
     'Copy to clipboard',
@@ -91,7 +91,23 @@ copy_to_clipboard_item = MenuItem(
     checked = lambda item: copy_to_clipboard
 )
 
-icon.menu = Menu(quit_item, copy_to_clipboard_item, *all_menu_items)
+def open_file_explorer():
+    subprocess.run(['explorer', package_path])
+
+open_file_explorer_item = MenuItem(
+    'Modify characters.json',
+    open_file_explorer
+)
+
+quit_item = MenuItem(
+    'Quit', 
+    icon.stop, 
+    default = False
+)
+
+
+
+icon.menu = Menu(quit_item, copy_to_clipboard_item, open_file_explorer_item, *all_menu_items)
 
 def main():
     icon.run()
