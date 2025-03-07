@@ -21,4 +21,4 @@ dependencies = [
 packages = ["charactertray"]
 
 [tool.setuptools.package-data]
-mypackage = ["data.json"]
+charactertray = ["characters.json, enye.png"]

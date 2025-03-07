@@ -1,5 +1,6 @@
 # @DONE add json parse functionality
 # @DONE add copymode functionality
+# @DONE restructure as package
 # @TODO store image as binary
 # @TODO add argparse functionality and installation
     # run_on_startup (bool)
@@ -9,9 +10,11 @@
 # @TODO add description, author, license to pyproject.toml
 
 import os
+from io import BytesIO
 import time
 import json
-from importlib.resources import files as pkg_files
+# import importlib.resources as pkg_resources
+from importlib.resources import files as pkg_files # @TODO consolidate
 from pystray import Icon, Menu, MenuItem
 from PIL import Image
 from pynput.keyboard import Key, Controller
@@ -67,8 +70,10 @@ def parse_json():
 
 all_menu_items = parse_json()
 
-iconpath = os.path.join(os.path.dirname(__file__), 'enye.png')
-icon = Icon('aengus_character_tray_icon', Image.open(iconpath), 'Aengus Character Tray')
+with pkg_files(charactertray).joinpath('enye.png').open('rb') as f:
+    image = Image.open(BytesIO(f.read()))
+# @TODO this currently raises a ValueError: seek of closed file
+icon = Icon('aengus_character_tray_icon', image, 'Aengus Character Tray')
 
 def toggle_copy_to_clipboard(icon, item):
     global copy_to_clipboard
