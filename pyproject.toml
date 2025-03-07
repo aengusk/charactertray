@@ -19,3 +19,6 @@ dependencies = [
 
 [tool.setuptools]
 packages = ["charactertray"]
+
+[tool.setuptools.package-data]
+mypackage = ["data.json"]

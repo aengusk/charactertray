@@ -11,10 +11,12 @@
 import os
 import time
 import json
+from importlib.resources import files as pkg_files
 from pystray import Icon, Menu, MenuItem
 from PIL import Image
 from pynput.keyboard import Key, Controller
 import pyperclip
+import charactertray
 
 copy_to_clipboard = False
 Keyboard = Controller()
@@ -40,14 +42,13 @@ def on_clicked(icon, item):
         time.sleep(0.3)
         Keyboard.type(character_to_send)
 
-
 def parse_json():
     '''
     parses characters.json in the same directory level as charactertray.pyw
     and returns a tuple of MenuItems
     to be unpacked by icon.menu = Menu(*tuple)
     '''
-    with open('characters.json', 'r', encoding='utf-8') as f:
+    with pkg_files(charactertray).joinpath("characters.json").open("r", encoding='utf-8') as f:
         all_submenu_data = json.load(f)
     all_menu_items = []
     for submenu_title in all_submenu_data.keys():
