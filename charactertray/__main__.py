@@ -2,6 +2,11 @@
 # @DONE add copymode functionality
 # @DONE restructure as package
 # @DONE store image as binary
+# @TODO decide names:
+    # repository: charactertray
+    # app: Character Tray
+    # logo: Æ
+# @TODO make sure only one instance can run at a time
 # @TODO add argparse functionality and installation
     # run_on_startup (bool)
     # reload (to update JSON)
@@ -27,7 +32,7 @@ Keyboard = Controller()
 
 package_path = pkg_files(charactertray)
 json_path =    package_path.joinpath('characters.json')
-image_path =   package_path.joinpath('enye.png')
+image_path =   package_path.joinpath('icon.png')
 
 def switchWindow():
     Keyboard.press(Key.alt)
@@ -95,7 +100,7 @@ def open_file_explorer():
     subprocess.run(['explorer', package_path])
 
 open_file_explorer_item = MenuItem(
-    'Modify characters.json',
+    'Customize characters.json',
     open_file_explorer
 )
 
