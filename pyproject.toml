@@ -17,8 +17,11 @@ dependencies = [
     "pyperclip", # for clipboard functionality
 ]
 
+[project.scripts]
+charactertray = "charactertray.__main__:main"
+
 [tool.setuptools]
 packages = ["charactertray"]
 
 [tool.setuptools.package-data]
-charactertray = ["characters.json, enye.png"]
+"*" = ["characters.json", "enye.png"]
