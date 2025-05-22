@@ -45,15 +45,8 @@ def main():
     if args.test2:
         print("Test message 2: Multiple arguments work too!")
         return 0
-    
-    # Convert args to a list of strings that can be passed to subprocess
+
     cmd = ['pythonw', '-m', 'charactertray.run_icon']
-    if args.customize: # @TODO remove
-        cmd.extend(['--customize'])
-    if args.reload: # @TODO remove
-        cmd.extend(['--reload'])
-    
-    # If no test arguments, launch the headless version
     subprocess.Popen(cmd, creationflags=subprocess.CREATE_NO_WINDOW)
     return 0
 
